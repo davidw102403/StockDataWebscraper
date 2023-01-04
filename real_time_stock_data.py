@@ -19,8 +19,9 @@ def real_time_price(ticker):
     parse data using beautiful soup library
     find and return price data
     '''
+    header = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0'} # allows client and server to pass additional information
     url = ('https://finance.yahoo.com/quote/') + ticker + ('?p=') + ticker + ('&.tsrc=fin-srch')
-    r = requests.get(url)
+    r = requests.get(url, headers = header)
 
     price_data = bs4.BeautifulSoup(r.text, "lxml") # create price_data object
     price_data = price_data.find('div', {'class' : 'D(ib) Mend(20px)'}) # locate class containing price data
